@@ -36,10 +36,10 @@ export default {
 
             // Increment value
             if (request.method === 'POST') {
-                let currentValue = parseInt(await env.INTEGER_COUNTER_STORE.get(counterName) || '0');
-                currentValue++;
-                await env.INTEGER_COUNTER_STORE.put(counterName, currentValue.toString());
-                return new Response(JSON.stringify({ value: currentValue }), {
+                let value = parseInt(await env.INTEGER_COUNTER_STORE.get(counterName) || '0');
+                value++;
+                await env.INTEGER_COUNTER_STORE.put(counterName, value.toString());
+                return new Response(value.toString(), {
                     status: 200,
                     headers: { 'Content-Type': 'application/json' }
                 });
@@ -49,7 +49,7 @@ export default {
             if (request.method === 'PUT') {
                 const data = await request.json() as { value: number };
                 await env.INTEGER_COUNTER_STORE.put(counterName, data.value.toString());
-                return new Response(JSON.stringify({ value: data.value }), {
+                return new Response(data.value.toString(), {
                     status: 200,
                     headers: { 'Content-Type': 'application/json' }
                 });

@@ -41,8 +41,8 @@ describe('Counter Worker Tests', () => {
                 method: 'POST'
             });
             expect(response.status).toBe(200);
-            const data = await response.json() as { value: number };
-            expect(data.value).toBe(1);
+            const data = await response.text();
+            expect(data).toBe('1');
         });
 
         it('should increment an existing counter', async () => {
@@ -51,8 +51,8 @@ describe('Counter Worker Tests', () => {
                 method: 'POST'
             });
             expect(response.status).toBe(200);
-            const data = await response.json() as { value: number };
-            expect(data.value).toBe(42);
+            const data = await response.text();
+            expect(data).toBe('42');
         });
     });
 
@@ -66,8 +66,8 @@ describe('Counter Worker Tests', () => {
                 }
             });
             expect(response.status).toBe(200);
-            const data = await response.json() as { value: number };
-            expect(data.value).toBe(100);
+            const data = await response.text();
+            expect(data).toBe('100');
 
             // Verify the value was actually stored
             const storedValue = await testEnv.INTEGER_COUNTER_STORE.get('test-counter');
